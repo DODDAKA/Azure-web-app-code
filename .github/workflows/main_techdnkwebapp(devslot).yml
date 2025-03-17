@@ -43,6 +43,7 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D0A0CF1D36834918B6E84D7C5F37EFAC }}
+          auth-type: publishprofile
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
