@@ -39,11 +39,11 @@ jobs:
           name: java-app
           path: target
 
-      - name: Azure Login (Publish Profile)
+      - name: Azure Login (Service Principal)
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          auth-type: publishprofile
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          auth-type: serviceprincipal
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
