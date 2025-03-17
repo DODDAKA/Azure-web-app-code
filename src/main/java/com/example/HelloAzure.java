@@ -21,7 +21,7 @@ public class HelloAzure extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Hello, Azure!</h1>");
-            out.println("<p>Welcome to your Java web app deployed on Azure.</p>");
+            out.println("<p>Welcome to your Java web app deployed on Azure.DNK</p>");
             out.println("</body>");
             out.println("</html>");
         }
