@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy WAR app to Azure Web App - dnkwebapp
 
 on:
@@ -30,11 +27,14 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
+      - name: List target directory (Debugging)
+        run: ls -l target
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: 'target/*.war' # Uploads the generated .war file
+          path: 'target/*.war'
 
   deploy:
     runs-on: ubuntu-latest
@@ -52,14 +52,14 @@ jobs:
         with:
           name: java-app
 
-      - name: Print working directory (Deploy Job)
-        run: pwd
+      - name: List downloaded files (Debugging)
+        run: ls -l
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'dnkwebapp' # Name of your Azure Web App
-          slot-name: 'Production' # Deployment slot
-          package: '*.war' # Deploys the downloaded .war file
+          app-name: 'dnkwebapp'
+          slot-name: 'Production'
+          package: '*.war'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_142B63B47ADA45D9AA5381024910A552 }}
