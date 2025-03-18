@@ -3,7 +3,7 @@ name: Build and deploy WAR app to Azure Web App using publish profile
 env:
   JAVA_VERSION: '17'                  # set this to the Java version to use
   DISTRIBUTION: microsoft             # set this to the Java distribution
-  AZURE_WEBAPP_NAME: dnkwebapp        # set this to the name of your web app
+  AZURE_WEBAPP_NAME: dnkwebapp        # set this to the name of your web ap
 
 on: [push]
 
