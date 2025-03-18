@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read # This is required for actions/checkout
 
     steps:
       - uses: actions/checkout@v4
@@ -24,6 +24,9 @@ jobs:
           java-version: '17'
           distribution: 'microsoft'
 
+      - name: Print working directory (Build Job)
+        run: pwd
+
       - name: Build with Maven
         run: mvn clean install
 
@@ -31,9 +34,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: 'target/*.war' #########'${{ github.workspace }}'  ##/target/*.war'
-      - name: Print working directory (Build Job)
-        run: pwd
+          path: 'target/*.war' # Uploads the generated .war file
 
   deploy:
     runs-on: ubuntu-latest
@@ -41,21 +42,24 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
+
     steps:
-      - name: Print working directory (Build Job)
+      - name: Print working directory (Deploy Job)
         run: pwd
+
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: java-app
-      - name: Print working directory (Build Job)
+
+      - name: Print working directory (Deploy Job)
         run: pwd
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'dnkwebapp'
-          slot-name: 'Production'
-          package: '*.war'
+          app-name: 'dnkwebapp' # Name of your Azure Web App
+          slot-name: 'Production' # Deployment slot
+          package: '*.war' # Deploys the downloaded .war file
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_142B63B47ADA45D9AA5381024910A552 }}
