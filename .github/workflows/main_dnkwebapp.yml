@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: 'target/dnkwebapp.war' # Explicitly specify the .war file
+          path: '${{ github.workspace }}/target/*.war' # Explicitly specify the .war file
 
   deploy:
     runs-on: ubuntu-latest
@@ -61,5 +61,5 @@ jobs:
         with:
           app-name: 'dnkwebapp'
           slot-name: 'Production'
-          package: 'dnkwebapp.war' # Explicitly specify the .war file
+          package: '*.war' # Explicitly specify the .war file
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_142B63B47ADA45D9AA5381024910A552 }}
